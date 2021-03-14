@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import com.example.demo.annotation.SocialUser;
+import com.example.demo.model.User;
 
 @Controller
 public class OAuth2UserController {
@@ -15,9 +17,13 @@ public class OAuth2UserController {
     return "login";
   }
 
-  @GetMapping({"/loginSuccess", "/board"})
-  public String loginSuccess() {
-    System.out.println("loginSuccess");
+  @GetMapping("/board")
+  public String board() {
     return "board";
+  }
+
+  @GetMapping("/loginSuccess")
+  public String loginComplete(@SocialUser User user) {
+    return "redirect:/board";
   }
 }

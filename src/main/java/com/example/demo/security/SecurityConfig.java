@@ -13,8 +13,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity httpSecurity) throws Exception {
     httpSecurity.authorizeRequests()
         .antMatchers("/", "/oauth2/**", "/login/**", "/css/**", "/images/**", "/js/**",
-            "/console/**", "/favicon.ico/**")
-        .permitAll().anyRequest().authenticated().and().oauth2Login().and().exceptionHandling()
-        .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"));
+            "/console/**")
+        .permitAll().anyRequest().authenticated().and().oauth2Login()
+        .defaultSuccessUrl("/loginSuccess").failureUrl("/loginFailure").and().headers()
+        .frameOptions().disable().and().exceptionHandling()
+        .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login")).and().formLogin()
+        .successForwardUrl("/board").and().logout().logoutUrl("/logout").logoutSuccessUrl("/")
+        .deleteCookies("JSESSIONID").invalidateHttpSession(true).and().csrf().disable();
   }
 }
