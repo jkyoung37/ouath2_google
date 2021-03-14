@@ -17,6 +17,7 @@ public class OAuth2UserController {
 
   @GetMapping({"/loginSuccess", "/board"})
   public String loginSuccess() {
+    System.out.println("loginSuccess");
     return "board";
   }
 }
